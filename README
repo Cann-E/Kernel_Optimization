@@ -1,45 +1,97 @@
-# 🧠 Kernel Optimization
+# 🚀 Kernel_Optimization
 
-This project implements several CUDA kernels to optimize matrix transpose operations on the GPU. It explores memory coalescing, shared memory usage, loop unrolling, and instruction-level parallelism.
+A CUDA-based project focused on optimizing matrix transpose operations. The goal is to compare naive, shared memory, and high-performance GPU kernel implementations for matrix transposition and measure their speedup over CPU and baseline GPU methods.
 
-## 🚀 Machine Learning Relevance
+---
 
-Matrix transpose is a critical operation in many deep learning frameworks, especially during tensor reshaping and backpropagation. Optimizing this operation can significantly accelerate training and inference times on GPUs, making this project directly applicable to machine learning workloads.
+## 🧠 Description
 
-## 💻 Features
+This project implements multiple matrix transpose kernels in CUDA. Starting from a naive implementation, it introduces shared memory usage and culminates in a fully optimized version. Performance is measured across multiple matrix sizes (512x512 to 4096x4096). The optimizations focus on reducing global memory latency, maximizing coalesced access, and improving instruction throughput using GPU-specific techniques.
 
-- Naive transpose kernel (baseline)
-- Coalesced memory access kernel
-- Shared memory implementation
-- Loop unrolling and instruction-level parallelism (ILP)
-- Performance benchmarking with execution time and speedup
+---
 
-## 🧪 How to Run
+## 🔧 Tech Stack
 
-1. Compile with NVCC:
+- CUDA
+- C++
+- NVCC
+- Makefile build system
 
-   ```bash
-   nvcc transpose_device.cu -o transpose
-   ```
+---
 
-2. Run:
+## ✨ Key Features
 
-   ```bash
-   ./transpose
-   ```
+- ✅ Naive GPU transpose kernel for baseline comparison  
+- ✅ Shared memory-based transpose kernel  
+- ✅ Fully optimized transpose kernel using:
+  - Instruction-level parallelism (ILP)  
+  - Loop unrolling  
+  - Vectorized memory access  
+  - Coalesced reads/writes  
+- ✅ CPU-based transpose for reference  
+- ✅ Performance output in milliseconds across matrix sizes
 
-## 📊 Benchmark Results
+---
 
-Includes performance comparisons between naive and optimized kernels for various matrix sizes (e.g. 512x512, 1024x1024).
+## 📂 Folder Structure
 
-## 🛠 Technologies Used
+```
+.
+├── Makefile                  # Builds the project
+├── transpose                 # Final executable
+├── transpose_host.cpp        # CPU baseline transpose
+├── transpose_device.cu       # CUDA kernels (naive, shmem, optimized)
+├── transpose_device.cuh      # Kernel headers
+├── ta_utilities.cpp/.hpp     # Utility code
+├── README                    # Assignment spec (copied from instructions)
+```
 
-- CUDA C++
-- GPU architecture optimization
-- Linux CLI tools
+---
 
-## 📁 Folder Structure
+## 🛠️ Setup & Usage
 
-- `transpose_device.cu` – all kernel implementations
-- `README.md` – this file
+### ✅ Requirements
 
+- CUDA Toolkit 12.x or later
+- NVIDIA GPU with Compute Capability 3.5+
+- Linux/macOS environment with `make`
+
+### ⚙️ Build
+
+```bash
+make
+```
+
+### ▶️ Run
+
+```bash
+./transpose
+```
+
+### 💡 Example Output
+
+```
+Size 512 naive CPU: 0.850624 ms
+Size 512 GPU memcpy: 0.043104 ms
+Size 512 naive GPU: 0.143360 ms
+Size 512 shmem GPU: 0.027648 ms
+Size 512 optimal GPU: 0.023392 ms
+```
+
+---
+
+## 📸 Output
+
+Command-line output with timings for each kernel version across various matrix sizes. Results include GPU memcpy overhead, CPU vs GPU baseline comparisons, and optimized execution time.
+
+---
+
+## 👥 Contributors
+
+- Can Ercan (@cann-e)
+
+---
+
+## 📜 License
+
+None
